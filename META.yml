@@ -1,0 +1,10 @@
+--- #YAML:1.0
+name: okbiff
+version: 0.03
+author: ~
+abstract: ~
+license: perl
+requires:
+  WWW::Mechanize: 1.04
+provides: {}
+generated_by: Module::Build version 0.2602

@@ -1,0 +1,100 @@
+#!/usr/bin/perl -w
+
+
+=head1 NAME
+
+  okbiff - check if you have mail on OkCupid.com
+
+
+=head1 SYNOPSIS
+
+  okbiff
+
+
+=head1 DESCRIPTION
+
+Logs into your OkCupid account and tells you how much new mail you
+have waiting then logs out again.  So you can compulsively check for
+messages without feeling like you're compulsively checking for
+messages.  Ok?
+
+
+=head1 FILES
+
+F<~/.okbiff>  The okbiff configuration file.  It looks like this.
+
+ User:          Your_Username
+ Password:      Your_Password
+
+
+=head1 AUTHOR
+
+XWRN <schwern@pobox.com>
+
+
+=head1 VERSION
+
+0.03
+
+
+=head1 SEE ALSO
+
+biff(1)
+
+
+=head1 OK?
+
+Ok.
+
+=cut
+
+use strict;
+use WWW::Mechanize;
+
+my $Conf_File = "$ENV{HOME}/.okbiff";
+my %Conf = read_conf();
+
+
+my $mech = WWW::Mechanize->new(cookie_jar => {},
+                               agent => "okbiff/0.02"
+                              );
+
+$mech->get("http://www.okcupid.com");
+$mech->submit_form(
+        form_name => "loginf",
+        fields    => { username => $Conf{user},
+                       password => $Conf{password}
+                     },
+        button    => 'submit'
+);
+
+my $home = $mech->content;
+
+my($num_mail) = $home =~ /Mail(?:\s+\((\d+)\))?/ or die "Can't log in\n";
+$num_mail ||= 0;
+
+printf "You've got %d new message%s, ok?\n", 
+  $num_mail, $num_mail == 1 ? '' : 's';
+
+$mech->follow_link( text_regex => qr/logout/i );
+
+
+sub read_conf {
+    my %conf = ();
+
+    open CONF, $Conf_File or 
+      die "Can't open configuration file $Conf_File: $!";
+
+    while(my $line = <CONF>) {
+        chomp $line;
+        my($key, $val) = split /:\s*/, $line, 2;
+        $conf{lc $key} = $val;
+    }
+
+    close CONF;
+
+    die "Missing username in config file.\n" unless $conf{user};
+    die "Missing password in config file.\n" unless $conf{password};
+
+    return %conf;
+}

@@ -1,0 +1,24 @@
+What is this?
+  Its a program to check if you have mail on OkCupid.
+
+
+Prerequisties
+  Perl 5.6 or better
+    Unix and OS X users are in luck!  You've already got it.  
+    Windows users go here: http://www.activestate.com/Products/ActivePerl/
+
+  The WWW::Mechanize perl module
+    http://search.cpan.org/dist/WWW-Mechanize/
+
+  The Module::Build perl module
+    http://search.cpan.org/dist/Module-Build/
+
+
+Installation
+  perl Build.PL
+  Build test
+  Build install
+
+
+Questions, Comments, Patches, Better Docs
+  Contact schwern@pobox.com or message XWRN on okcupid.com
