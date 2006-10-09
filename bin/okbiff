@@ -3,7 +3,7 @@
 
 =head1 NAME
 
-  okbiff - check if you have mail on OkCupid.com
+okbiff - check if you have mail on OkCupid.com
 
 
 =head1 SYNOPSIS
@@ -17,6 +17,9 @@ Logs into your OkCupid account and tells you how much new mail you
 have waiting then logs out again.  So you can compulsively check for
 messages without feeling like you're compulsively checking for
 messages.  Ok?
+
+    $ okbiff
+    You've got 1 new message, ok?
 
 
 =head1 FILES
@@ -34,7 +37,7 @@ XWRN <schwern@pobox.com>
 
 =head1 VERSION
 
-0.03
+0.04
 
 
 =head1 SEE ALSO
@@ -51,12 +54,14 @@ Ok.
 use strict;
 use WWW::Mechanize;
 
+our $VERSION = 0.04;
+
 my $Conf_File = "$ENV{HOME}/.okbiff";
 my %Conf = read_conf();
 
 
 my $mech = WWW::Mechanize->new(cookie_jar => {},
-                               agent => "okbiff/0.02"
+                               agent => "okbiff/$VERSION"
                               );
 
 $mech->get("http://www.okcupid.com");
@@ -69,11 +74,18 @@ $mech->submit_form(
 );
 
 my $home = $mech->content;
+my $num_mail;
+if( $home =~ /\bInbox:\s+<b>(\d+)\s+new\b/i ) {
+    $num_mail = $1;
+}
+elsif( $home =~ /\bYour Mailbox\b/ ) {
+    $num_mail = 0;
+}
+else {
+    die "Couldn't find the mailbox text.  Maybe I couldn't log in.\n";
+}
 
-my($num_mail) = $home =~ /Mail(?:\s+\((\d+)\))?/ or die "Can't log in\n";
-$num_mail ||= 0;
-
-printf "You've got %d new message%s, ok?\n", 
+printf "You've got %d new message%s, ok?\n",
   $num_mail, $num_mail == 1 ? '' : 's';
 
 $mech->follow_link( text_regex => qr/logout/i );

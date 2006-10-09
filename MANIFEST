@@ -1,5 +1,7 @@
 bin/okbiff
 Build.PL
+builds/okbiff-osx-ppc
+Changes
 Makefile.PL
 MANIFEST			This list of files
 META.yml

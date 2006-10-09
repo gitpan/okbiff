@@ -2,13 +2,13 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
+          'PL_FILES' => {},
+          'INSTALLDIRS' => 'site',
+          'DISTNAME' => 'okbiff',
           'EXE_FILES' => [
                            'bin/okbiff'
                          ],
-          'INSTALLDIRS' => 'site',
-          'VERSION' => '0.03',
-          'DISTNAME' => 'okbiff',
-          'PL_FILES' => {},
+          'VERSION_FROM' => 'bin/okbiff',
           'PREREQ_PM' => {
                            'WWW::Mechanize' => '1.04'
                          }
