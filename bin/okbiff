@@ -37,7 +37,7 @@ XWRN <schwern@pobox.com>
 
 =head1 VERSION
 
-0.04
+0.05
 
 
 =head1 SEE ALSO
@@ -51,10 +51,13 @@ Ok.
 
 =cut
 
+my $Have_Mail_Regex = qr/\bYou have (\d) new messages?\b/i;
+my $No_Mail_Regex   = qr/\bYou have no new messages\b/i;
+
 use strict;
 use WWW::Mechanize;
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 my $Conf_File = "$ENV{HOME}/.okbiff";
 my %Conf = read_conf();
@@ -75,10 +78,10 @@ $mech->submit_form(
 
 my $home = $mech->content;
 my $num_mail;
-if( $home =~ /\bInbox:\s+<b>(\d+)\s+new\b/i ) {
+if( $home =~ $Have_Mail_Regex ) {
     $num_mail = $1;
 }
-elsif( $home =~ /\bYour Mailbox\b/ ) {
+elsif( $home =~ $No_Mail_Regex ) {
     $num_mail = 0;
 }
 else {

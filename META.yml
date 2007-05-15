@@ -1,6 +1,6 @@
 ---
 name: okbiff
-version: 0.04
+version: 0.05
 author:
   - 'XWRN <schwern@pobox.com>'
 abstract: check if you have mail on OkCupid.com
@@ -9,7 +9,7 @@ resources:
   license: http://dev.perl.org/licenses/
 requires:
   WWW::Mechanize: 1.04
-generated_by: Module::Build version 0.2805
+generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2
