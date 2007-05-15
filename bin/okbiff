@@ -37,7 +37,7 @@ XWRN <schwern@pobox.com>
 
 =head1 VERSION
 
-0.05
+0.06
 
 
 =head1 SEE ALSO
@@ -57,7 +57,7 @@ my $No_Mail_Regex   = qr/\bYou have no new messages\b/i;
 use strict;
 use WWW::Mechanize;
 
-our $VERSION = 0.05;
+our $VERSION = 0.06;
 
 my $Conf_File = "$ENV{HOME}/.okbiff";
 my %Conf = read_conf();

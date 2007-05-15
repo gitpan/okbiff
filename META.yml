@@ -1,6 +1,6 @@
 ---
 name: okbiff
-version: 0.05
+version: 0.06
 author:
   - 'XWRN <schwern@pobox.com>'
 abstract: check if you have mail on OkCupid.com
