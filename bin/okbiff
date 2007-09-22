@@ -37,7 +37,7 @@ XWRN <schwern@pobox.com>
 
 =head1 VERSION
 
-0.06
+0.07
 
 
 =head1 SEE ALSO
@@ -57,7 +57,7 @@ my $No_Mail_Regex   = qr/\bYou have no new messages\b/i;
 use strict;
 use WWW::Mechanize;
 
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 
 my $Conf_File = "$ENV{HOME}/.okbiff";
 my %Conf = read_conf();
@@ -78,11 +78,9 @@ $mech->submit_form(
 
 my $home = $mech->content;
 my $num_mail;
-if( $home =~ $Have_Mail_Regex ) {
-    $num_mail = $1;
-}
-elsif( $home =~ $No_Mail_Regex ) {
-    $num_mail = 0;
+if( my $mail_link = $mech->find_link(url => '/mailbox?folder=1') )
+{
+    $num_mail = $mail_link->text;
 }
 else {
     die "Couldn't find the mailbox text.  Maybe I couldn't log in.\n";
@@ -91,7 +89,7 @@ else {
 printf "You've got %d new message%s, ok?\n",
   $num_mail, $num_mail == 1 ? '' : 's';
 
-$mech->follow_link( text_regex => qr/logout/i );
+$mech->follow_link( text_regex => qr/log\s*out/i );
 
 
 sub read_conf {
