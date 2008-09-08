@@ -1,3 +1,8 @@
+20080907  Sun Sep  7 19:57:02 PDT 2008
+    Improvements
+    - Fixed scaping to deal with changes to OKCupid's layout
+
+
 0.07  Sat Sep 22 07:50:14 PDT 2007
     Improvements
     - Fixed scraping to deal with changes to OKCupid's layout
@@ -5,14 +10,18 @@
     Tests
     - Added a compile test
 
+
 0.06  Mon May 14 18:29:44 PDT 2007
     - Forgot to update the pre-built executable with the new version.
+
 
 0.05  Mon May 14 18:24:25 PDT 2007
     * Updated okbiff for the new okcupid.com layout.
 
+
 0.04  Sun Oct  8 20:06:03 PDT 2006
     * Updated okbiff to handle the new okcupid.com layout
+
 
 0.03  Mon Nov 15 2004
     * Things.  And stuff.

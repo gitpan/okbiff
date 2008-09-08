@@ -37,7 +37,7 @@ XWRN <schwern@pobox.com>
 
 =head1 VERSION
 
-0.07
+20080907
 
 
 =head1 SEE ALSO
@@ -57,7 +57,7 @@ my $No_Mail_Regex   = qr/\bYou have no new messages\b/i;
 use strict;
 use WWW::Mechanize;
 
-our $VERSION = 0.07;
+our $VERSION = 20080907;
 
 my $Conf_File = "$ENV{HOME}/.okbiff";
 my %Conf = read_conf();
@@ -78,8 +78,12 @@ $mech->submit_form(
 
 my $home = $mech->content;
 my $num_mail;
-if( my $mail_link = $mech->find_link(url => '/mailbox?folder=1') )
+if( my @mail_links = $mech->find_all_links(url => '/mailbox?folder=1') )
 {
+    my($mail_link) = grep {
+        defined $_->attrs->{title} and
+        $_->attrs->{title} =~ /read your mail/i;
+    } @mail_links;
     $num_mail = $mail_link->text;
 }
 else {
