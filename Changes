@@ -1,6 +1,11 @@
+20080909  Tue Sep  9 18:36:52 PDT 2008
+    Improvements
+    - The page containing the login form moved.
+
+
 20080907  Sun Sep  7 19:57:02 PDT 2008
     Improvements
-    - Fixed scaping to deal with changes to OKCupid's layout
+    - Fixed scraping to deal with changes to OKCupid's layout
 
 
 0.07  Sat Sep 22 07:50:14 PDT 2007

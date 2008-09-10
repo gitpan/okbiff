@@ -37,7 +37,7 @@ XWRN <schwern@pobox.com>
 
 =head1 VERSION
 
-20080907
+20080909
 
 
 =head1 SEE ALSO
@@ -57,7 +57,7 @@ my $No_Mail_Regex   = qr/\bYou have no new messages\b/i;
 use strict;
 use WWW::Mechanize;
 
-our $VERSION = 20080907;
+our $VERSION = 20080909;
 
 my $Conf_File = "$ENV{HOME}/.okbiff";
 my %Conf = read_conf();
@@ -67,7 +67,7 @@ my $mech = WWW::Mechanize->new(cookie_jar => {},
                                agent => "okbiff/$VERSION"
                               );
 
-$mech->get("http://www.okcupid.com");
+$mech->get("http://www.okcupid.com/match");
 $mech->submit_form(
         form_name => "loginf",
         fields    => { username => $Conf{user},
